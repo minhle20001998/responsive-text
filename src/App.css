@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.outer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+form {
+  width: 50%;
+}
+
+.input {
+  height: 50px;
+  width: 100%;
+}
+
+.App {
+  background-color: cadetblue;
+  width: 50%;
+  height: 200px;
+  padding: 20px;
+  text-align: center;
+}
+
+.text {
+  font-size: 100px;
+  text-align: center;
+  word-break: break-word;
+}
