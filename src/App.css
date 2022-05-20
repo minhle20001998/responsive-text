@@ -23,10 +23,13 @@ form {
 
 .App {
   background-color: cadetblue;
-  width: 50%;
-  height: 200px;
+  width: 30%;
+  height: 400px;
   padding: 20px;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .text {
