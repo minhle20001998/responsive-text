@@ -7,20 +7,14 @@ export default function App() {
   const containerRef = useRef(null);
   const textRef = useRef(null);
   const fontSizeRef = useRef(100);
+  const paddingRef = useRef(40);
 
   useEffect(() => {
-    changeFontSize(false);
+    handleResize()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showText]);
+  }, [showText])
 
   useEffect(() => {
-    function handleResize() {
-      if (containerRef.current.offsetHeight > textRef.current.offsetHeight + 40) {
-        changeFontSize(true);
-      } else {
-        changeFontSize(false);
-      }
-    }
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -28,12 +22,21 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const changeFontSize = useCallback((increase) => {
-    if (increase && containerRef.current.offsetHeight <= textRef.current.offsetHeight + 40) {
-      textRef.current.style.opacity = 1;
+  const handleResize = () => {
+    if (textRef.current.offsetHeight <= 0) { return; }
+    if (containerRef.current.offsetHeight > textRef.current.offsetHeight + paddingRef.current) {
+      changeFontSize(true);
+    } else {
+      changeFontSize(false);
+    }
+  }
+
+  const changeFontSize = useCallback((isIncrease) => {
+    if (isIncrease && containerRef.current.offsetHeight <= textRef.current.offsetHeight + paddingRef.current) {
+      changeFontSize(false);
       return;
     }
-    if (!increase && containerRef.current.offsetHeight > textRef.current.offsetHeight + 40) {
+    if (!isIncrease && containerRef.current.offsetHeight > textRef.current.offsetHeight + paddingRef.current) {
       textRef.current.style.opacity = 1;
       return;
     }
@@ -41,8 +44,8 @@ export default function App() {
       .getComputedStyle(textRef.current, null)
       .getPropertyValue("font-size");
     let fontSize = parseFloat(style);
-    textRef.current.style.fontSize = `${fontSize + (increase ? 1 : -1)}px`;
-    changeFontSize();
+    textRef.current.style.fontSize = `${fontSize + (isIncrease ? 1 : -1)}px`;
+    changeFontSize(isIncrease);
   }, []);
 
   const handleSubmit = (e) => {
