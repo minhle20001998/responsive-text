@@ -24,14 +24,16 @@ export default function App() {
 
   const handleResize = () => {
     if (textRef.current.offsetHeight <= 0) { return; }
-    if (containerRef.current.offsetHeight > textRef.current.offsetHeight + paddingRef.current) {
-      changeFontSize(true);
-    } else {
-      changeFontSize(false);
-    }
+    changeFontSizeImprove();
+    // if (containerRef.current.offsetHeight > textRef.current.offsetHeight + paddingRef.current) {
+    //   changeFontSize(true);
+    // } else {
+    //   changeFontSize(false);
+    // }
   }
 
   const changeFontSize = useCallback((isIncrease) => {
+    console.log('old way')
     if (isIncrease && containerRef.current.offsetHeight <= textRef.current.offsetHeight + paddingRef.current) {
       changeFontSize(false);
       return;
@@ -47,6 +49,44 @@ export default function App() {
     textRef.current.style.fontSize = `${fontSize + (isIncrease ? 1 : -1)}px`;
     changeFontSize(isIncrease);
   }, []);
+
+  const changeFontSizeImprove = useCallback(() => {
+    // ----- increase size
+    console.log('improve')
+    if (containerRef.current.offsetHeight <= textRef.current.offsetHeight + paddingRef.current) {
+      while (containerRef.current.offsetHeight <= textRef.current.offsetHeight + paddingRef.current) {
+        let style = window
+          .getComputedStyle(textRef.current, null)
+          .getPropertyValue("font-size");
+        let fontSize = parseFloat(style);
+        textRef.current.style.fontSize = `${fontSize - 1}px`
+      }
+
+      textRef.current.style.opacity = 1;
+      return;
+    }
+    // ----- decrease size
+    if (containerRef.current.offsetHeight > textRef.current.offsetHeight + paddingRef.current) {
+      while (containerRef.current.offsetHeight > textRef.current.offsetHeight + paddingRef.current) {
+        let style = window
+          .getComputedStyle(textRef.current, null)
+          .getPropertyValue("font-size");
+        let fontSize = parseFloat(style);
+        textRef.current.style.fontSize = `${fontSize + 1}px`
+      }
+
+      while (containerRef.current.offsetHeight <= textRef.current.offsetHeight + paddingRef.current) {
+        let style = window
+          .getComputedStyle(textRef.current, null)
+          .getPropertyValue("font-size");
+        let fontSize = parseFloat(style);
+        textRef.current.style.fontSize = `${fontSize - 1}px`
+      }
+
+      textRef.current.style.opacity = 1;
+      return;
+    }
+  }, [])
 
   const handleSubmit = (e) => {
     textRef.current.style.fontSize = `${fontSizeRef.current}px`;
