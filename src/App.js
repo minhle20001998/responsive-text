@@ -52,7 +52,6 @@ export default function App() {
 
   const changeFontSizeImprove = useCallback(() => {
     // ----- increase size
-    console.log('improve')
     if (containerRef.current.offsetHeight <= textRef.current.offsetHeight + paddingRef.current) {
       while (containerRef.current.offsetHeight <= textRef.current.offsetHeight + paddingRef.current) {
         let style = window
