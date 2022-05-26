@@ -25,11 +25,6 @@ export default function App() {
   const handleResize = () => {
     if (textRef.current.offsetHeight <= 0) { return; }
     changeFontSizeImprove();
-    // if (containerRef.current.offsetHeight > textRef.current.offsetHeight + paddingRef.current) {
-    //   changeFontSize(true);
-    // } else {
-    //   changeFontSize(false);
-    // }
   }
 
   const changeFontSize = useCallback((isIncrease) => {
