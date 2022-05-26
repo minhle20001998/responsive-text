@@ -12,7 +12,6 @@ export default function App() {
   useEffect(() => {
     handleResize()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    
   }, [showText])
 
   useEffect(() => {
