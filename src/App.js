@@ -46,7 +46,7 @@ export default function App() {
   }, []);
 
   const changeFontSizeImprove = useCallback(() => {
-    // ----- increase size
+    // ----- increase sizes
     if (containerRef.current.offsetHeight <= textRef.current.offsetHeight + paddingRef.current) {
       while (containerRef.current.offsetHeight <= textRef.current.offsetHeight + paddingRef.current) {
         let style = window
@@ -59,7 +59,7 @@ export default function App() {
       textRef.current.style.opacity = 1;
       return;
     }
-    // ----- decrease size
+    // ----- decrease sizes
     if (containerRef.current.offsetHeight > textRef.current.offsetHeight + paddingRef.current) {
       while (containerRef.current.offsetHeight > textRef.current.offsetHeight + paddingRef.current) {
         let style = window
